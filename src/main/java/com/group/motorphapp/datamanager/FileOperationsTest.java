@@ -1,6 +1,6 @@
 package com.group.motorphapp.datamanager;
 
-import model.Employee;
+import com.group.motorphapp.model.Employee;
 
 public class FileOperationsTest {
     public static void main(String[] args) {

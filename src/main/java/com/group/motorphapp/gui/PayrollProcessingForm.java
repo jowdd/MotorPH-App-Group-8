@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Locale;
 
 // Import your existing classes
-import model.Employee;
-import model.TimeLog;
-import model.PayrollSystem;
-import model.PayrollCalculator;
+import com.group.motorphapp.model.Employee;
+import com.group.motorphapp.model.TimeLog;
+import com.group.motorphapp.model.PayrollSystem;
+import com.group.motorphapp.model.PayrollCalculator;
 
 public class PayrollProcessingForm extends JFrame {
     private JTextField employeeNumberField;

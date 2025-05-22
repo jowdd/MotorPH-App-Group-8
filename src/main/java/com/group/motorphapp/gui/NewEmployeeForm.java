@@ -1,7 +1,7 @@
 package com.group.motorphapp.gui;
 
-import model.Employee;
-import model.PayrollSystem;
+import com.group.motorphapp.model.Employee;
+import com.group.motorphapp.model.PayrollSystem;
 import com.group.motorphapp.filereader.EmployeeWriter;
 
 import javax.swing.*;

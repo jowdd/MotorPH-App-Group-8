@@ -1,4 +1,4 @@
-package model;
+package com.group.motorphapp.model;
         
 public class Employee {
     private String employeeNumber;

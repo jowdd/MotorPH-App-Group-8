@@ -1,6 +1,6 @@
 package com.group.motorphapp.filereader;
 
-import model.Employee;
+import com.group.motorphapp.model.Employee;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

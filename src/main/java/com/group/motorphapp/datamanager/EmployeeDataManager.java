@@ -1,7 +1,7 @@
 package com.group.motorphapp.datamanager;
 
-import model.Employee;
-import model.TimeLog;
+import com.group.motorphapp.model.Employee;
+import com.group.motorphapp.model.TimeLog;
 
 import java.io.*;
 import java.nio.file.*;

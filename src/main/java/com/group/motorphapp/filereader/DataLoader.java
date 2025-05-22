@@ -1,7 +1,7 @@
 package com.group.motorphapp.filereader;
 
-import model.Employee;
-import model.TimeLog;
+import com.group.motorphapp.model.Employee;
+import com.group.motorphapp.model.TimeLog;
 
 import java.io.*;
 import java.time.LocalDate;

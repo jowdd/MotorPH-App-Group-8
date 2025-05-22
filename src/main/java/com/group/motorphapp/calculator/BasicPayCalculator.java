@@ -1,7 +1,7 @@
 package com.group.motorphapp.calculator;
 
-import model.Employee;
-import model.TimeLog;
+import com.group.motorphapp.model.Employee;
+import com.group.motorphapp.model.TimeLog;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

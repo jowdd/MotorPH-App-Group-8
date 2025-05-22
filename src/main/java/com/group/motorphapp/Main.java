@@ -5,7 +5,7 @@
 package com.group.motorphapp;
 
 
-import model.PayrollSystem;
+import com.group.motorphapp.model.PayrollSystem;
 import com.group.motorphapp.gui.EmployeeListView;
 import com.group.motorphapp.gui.EmployeeManagementPanel;
 

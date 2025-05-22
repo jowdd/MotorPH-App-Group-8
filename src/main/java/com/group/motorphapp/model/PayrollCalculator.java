@@ -1,4 +1,4 @@
-package model;
+package com.group.motorphapp.model;
 
 import com.group.motorphapp.calculator.DeductionsCalculator;
 import com.group.motorphapp.calculator.BasicPayCalculator;

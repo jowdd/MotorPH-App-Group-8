@@ -1,4 +1,4 @@
-package model;
+package com.group.motorphapp.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
