@@ -155,54 +155,42 @@ public class EmployeeDetailView extends JFrame {
             return;
         }
 
-        // Clear previous salary details
-        salaryDetailsPanel.removeAll();
-        salaryDetailsPanel.setBorder(BorderFactory.createTitledBorder(
-                "Salary Details for " + monthSelector.getSelectedItem() + " " + selectedYear));
+        // Use PayrollCalculator to compute gross pay from time logs
+        com.group.motorphapp.model.PayrollCalculator calculator = new com.group.motorphapp.model.PayrollCalculator();
+        double grossPay = calculator.calculateGrossPay(employee, logs);
 
-        // Create a panel with salary details using GridLayout
-        JPanel detailsGrid = new JPanel(new GridLayout(0, 2, 10, 5));
-
-        // Calculate gross salary
-        double basicSalary = employee.getBasicSalary();
         double riceSubsidy = employee.getRiceSubsidy();
         double phoneAllowance = employee.getPhoneAllowance();
         double clothingAllowance = employee.getClothingAllowance();
-        double grossSalary = basicSalary + riceSubsidy + phoneAllowance + clothingAllowance;
+        double totalAllowances = riceSubsidy + phoneAllowance + clothingAllowance;
+        double grossSalary = grossPay + totalAllowances;
 
         // Add salary components
+        JPanel detailsGrid = new JPanel(new java.awt.GridLayout(0, 2, 10, 5));
         detailsGrid.add(new JLabel("Basic Salary:"));
-        detailsGrid.add(new JLabel(String.format("₱%.2f", basicSalary)));
-
+        detailsGrid.add(new JLabel(String.format("₱%.2f", employee.getBasicSalary())));
         detailsGrid.add(new JLabel("Rice Subsidy:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", riceSubsidy)));
-
         detailsGrid.add(new JLabel("Phone Allowance:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", phoneAllowance)));
-
         detailsGrid.add(new JLabel("Clothing Allowance:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", clothingAllowance)));
-
         detailsGrid.add(new JLabel("Gross Monthly Salary:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", grossSalary)));
 
-        // Calculate deductions
-        // These calculations are simplified and should be replaced with your actual calculations
-        double sssDeduction = calculateSssContribution(basicSalary);
-        double philhealthDeduction = calculatePhilhealthContribution(basicSalary);
-        double pagibigDeduction = calculatePagibigContribution(basicSalary);
-        double withholdingTax = calculateWithholdingTax(basicSalary, sssDeduction, philhealthDeduction, pagibigDeduction);
+        // Calculate deductions using grossPay
+        double sssDeduction = calculator.calculateSSSContribution(grossPay);
+        double philhealthDeduction = calculator.calculatePhilhealthContribution(grossPay);
+        double pagibigDeduction = calculator.calculatePagibigContribution(grossPay);
+        double withholdingTax = calculator.calculateWithholdingTax(grossPay - (sssDeduction + philhealthDeduction + pagibigDeduction));
 
         // Add deduction details
         detailsGrid.add(new JLabel("SSS Contribution:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", sssDeduction)));
-
         detailsGrid.add(new JLabel("PhilHealth Contribution:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", philhealthDeduction)));
-
         detailsGrid.add(new JLabel("Pag-IBIG Contribution:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", pagibigDeduction)));
-
         detailsGrid.add(new JLabel("Withholding Tax:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", withholdingTax)));
 
@@ -213,16 +201,14 @@ public class EmployeeDetailView extends JFrame {
         // Add total deductions and net pay
         detailsGrid.add(new JLabel("Total Deductions:"));
         detailsGrid.add(new JLabel(String.format("₱%.2f", totalDeductions)));
-
         detailsGrid.add(new JLabel("Net Pay:"));
         JLabel netPayLabel = new JLabel(String.format("₱%.2f", netPay));
-        netPayLabel.setFont(new Font(netPayLabel.getFont().getName(), Font.BOLD, netPayLabel.getFont().getSize()));
+        netPayLabel.setFont(new java.awt.Font(netPayLabel.getFont().getName(), java.awt.Font.BOLD, netPayLabel.getFont().getSize()));
         detailsGrid.add(netPayLabel);
 
         // Add details grid to salary panel
+        salaryDetailsPanel.removeAll();
         salaryDetailsPanel.add(detailsGrid);
-
-        // Refresh the panel
         salaryDetailsPanel.revalidate();
         salaryDetailsPanel.repaint();
     }
