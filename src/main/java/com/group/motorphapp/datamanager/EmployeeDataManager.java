@@ -85,8 +85,8 @@ public class EmployeeDataManager {
                         // Skip phone at index 5
                         String sssNumber = data[6];
                         String philhealthNumber = data[7];
-                        String pagibigNumber = data[8];
-                        String tinNumber = data[9];
+                        String pagibigNumber = data[9];
+                        String tinNumber = data[8];
                         // Skip employmentStatus at index 10
                         String position = data[11];
                         // Skip supervisor at index 12
@@ -160,6 +160,7 @@ public class EmployeeDataManager {
     public List<TimeLog> getTimeLogs() {
         List<TimeLog> timeLogs = new ArrayList<>();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
 
         // First check if file exists
         File timeLogFile = new File(TIME_LOG_FILE);
@@ -180,13 +181,16 @@ public class EmployeeDataManager {
             while ((line = reader.readLine()) != null) {
                 try {
                     String[] data = line.split(",");
-                    if (data.length >= 4) {
-                        String employeeNumber = data[0];
-                        LocalDate date = LocalDate.parse(data[1], dateFormatter);
+                    if (data.length >= 6) {
+                        String employeeNumber = data[0]. trim();
+                        String dataString = data [3].trim();
+                        String timeInString = data [4].trim();
+                        String timeOutString = data [5].trim();
 
                         // Parse time entries (some might be empty)
-                        LocalTime timeIn = data[2].isEmpty() ? null : LocalTime.parse(data[2]);
-                        LocalTime timeOut = data[3].isEmpty() ? null : LocalTime.parse(data[3]);
+                        LocalDate date = LocalDate.parse(dataString, dateFormatter);
+                        LocalTime timeIn = data[2].isEmpty() ? null : LocalTime.parse(timeInString, timeFormatter);
+                        LocalTime timeOut = data[3].isEmpty() ? null : LocalTime.parse(timeOutString, timeFormatter);
 
                         TimeLog timeLog = new TimeLog(employeeNumber, date, timeIn, timeOut);
                         timeLogs.add(timeLog);
