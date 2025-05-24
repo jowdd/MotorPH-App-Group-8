@@ -143,6 +143,18 @@ public class EmployeeDetailView extends JFrame {
         int selectedMonth = monthSelector.getSelectedIndex() + 1;
         int selectedYear = (Integer) yearSelector.getSelectedItem();
 
+        // Check if there are time logs for this employee in the selected month/year
+        java.time.LocalDate startDate = java.time.LocalDate.of(selectedYear, selectedMonth, 1);
+        java.time.LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+        java.util.List<com.group.motorphapp.model.TimeLog> logs = payrollSystem.getEmployeeTimeLogs(employee.getEmployeeNumber(), startDate, endDate);
+        if (logs == null || logs.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No records found for the selected month/year.", "No Records", JOptionPane.WARNING_MESSAGE);
+            salaryDetailsPanel.removeAll();
+            salaryDetailsPanel.revalidate();
+            salaryDetailsPanel.repaint();
+            return;
+        }
+
         // Clear previous salary details
         salaryDetailsPanel.removeAll();
         salaryDetailsPanel.setBorder(BorderFactory.createTitledBorder(
